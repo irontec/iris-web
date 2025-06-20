@@ -17,7 +17,7 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from unittest import TestCase
-from iris import Iris
+from test_harness.iris import Iris
 
 _IDENTIFIER_FOR_NONEXISTENT_OBJECT = 123456789
 _CASE_ACCESS_LEVEL_READ_ONLY = 2

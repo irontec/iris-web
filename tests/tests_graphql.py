@@ -17,9 +17,9 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from unittest import TestCase
-from iris import Iris
-from iris import API_URL
-from graphql_api import GraphQLApi
+from test_harness.iris import Iris
+from test_harness.iris import API_URL
+from test_harness.graphql_api import GraphQLApi
 from base64 import b64encode
 
 

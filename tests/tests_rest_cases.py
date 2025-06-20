@@ -18,7 +18,7 @@
 
 from unittest import TestCase
 from uuid import uuid4
-from iris import Iris
+from test_harness.iris import Iris
 
 
 def _get_case_with_identifier(response, identifier):

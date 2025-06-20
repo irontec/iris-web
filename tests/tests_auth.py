@@ -21,8 +21,8 @@ from uuid import uuid4
 import requests
 from urllib import parse
 
-from iris import Iris
-from iris import API_URL
+from test_harness.iris import Iris
+from test_harness.iris import API_URL
 
 
 class TestsAuth(TestCase):

@@ -17,7 +17,7 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 from unittest import TestCase
-from iris import Iris
+from test_harness.iris import Iris
 
 _PERMISSION_ALERTS_DELETE = 0x10
 _PERMISSION_ALERTS_WRITE = 0x8

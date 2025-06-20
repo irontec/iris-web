@@ -18,7 +18,7 @@
 
 from unittest import TestCase
 
-from iris import Iris
+from test_harness.iris import Iris
 
 _IDENTIFIER_FOR_NONEXISTENT_OBJECT = 123456789
 

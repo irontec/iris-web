@@ -15,8 +15,8 @@
 #  along with this program; if not, write to the Free Software Foundation,
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-from graphql_api import GraphQLApi
-from rest_api import RestApi
+from test_harness.graphql_api import GraphQLApi
+from test_harness.rest_api import RestApi
 
 
 class User:
