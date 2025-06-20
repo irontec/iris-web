@@ -178,6 +178,20 @@ jobs:
         run: |
           docker ps --all
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Stop development server
         run: |
           docker compose down
@@ -214,6 +228,20 @@ jobs:
         if: failure()
         run: |
           docker ps --all
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          sleep 1
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Run tests
         working-directory: tests
