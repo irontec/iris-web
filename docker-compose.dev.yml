@@ -23,6 +23,7 @@ services:
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
       interval: 1s
+      retries: 20
 
   db:
     extends:

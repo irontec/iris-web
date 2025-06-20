@@ -176,6 +176,7 @@ jobs:
       - name: Inspect development server start failure
         if: always()
         run: |
+          cat docker-compose.dev.yml
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Stop development server
         run: |
