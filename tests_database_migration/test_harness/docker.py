@@ -41,7 +41,7 @@ class Docker:
 
     @staticmethod
     def inspect_health(container):
-        return subprocess.check_output(['docker', 'inspect', '--format "{{json .State.Health}}"', container],
+        return subprocess.check_output(['docker', 'inspect', '--format', '"{{json .State.Health}}"', container],
                                        universal_newlines=True)
 
     @staticmethod
