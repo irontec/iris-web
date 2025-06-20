@@ -18,7 +18,7 @@
 
 from uuid import uuid4
 from pathlib import Path
-from test_harness.docker_compose import DockerCompose
+from test_harness.docker import Docker
 from test_harness.rest_api import RestApi
 from test_harness.user import User
 from test_harness.socket_io_context_manager import SocketIOContextManager
@@ -34,7 +34,7 @@ _INITIAL_DEMO_CASE_IDENTIFIER = 1
 class Iris:
 
     def __init__(self):
-        self._docker_compose = DockerCompose(_IRIS_PATH, 'docker-compose.dev.yml')
+        self._docker_compose = Docker(_IRIS_PATH, 'docker-compose.dev.yml')
         # TODO remove this field and use _administrator instead
         self._api = RestApi(API_URL, _API_KEY)
         self._administrator = User(API_URL, _API_KEY, _ADMINISTRATOR_USER_IDENTIFIER)
