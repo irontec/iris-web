@@ -16,7 +16,7 @@
 #  along with this program; if not, write to the Free Software Foundation,
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-
+from subprocess import CalledProcessError
 from unittest import TestCase
 from pathlib import Path
 import gzip
@@ -52,12 +52,18 @@ class TestsDatabaseMigration(TestCase):
     def test_update_from_v2_4_14_should_not_fail(self):
         self._docker.compose_up('db')
         self._dump_database('v2.4.14_empty')
-        self._docker.compose_up()
+        try:
+            self._docker.compose_up()
+        except CalledProcessError:
+            print(self._docker.inspect_health('iriswebapp_rabbitmq'))
 
     def test_get_iocs_should_return_200_after_update_from_v2_4_22(self):
         self._docker.compose_up('db')
         self._dump_database('v2.4.22_empty')
-        self._docker.compose_up()
+        try:
+            self._docker.compose_up()
+        except CalledProcessError:
+            print(self._docker.inspect_health('iriswebapp_rabbitmq'))
 
         subject = Iris()
         case_identifier = subject.create_dummy_case()

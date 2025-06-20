@@ -40,6 +40,11 @@ class Docker:
                                        cwd=self._docker_compose_path, universal_newlines=True)
 
     @staticmethod
+    def inspect_health(container):
+        return subprocess.check_output(['docker', 'inspect', '--format "{{json .State.Health}}"', container],
+                                       universal_newlines=True)
+
+    @staticmethod
     def exec(container, stdin, command):
         subprocess.check_call(['docker', 'exec', '--interactive', container] + command, stdin=stdin)
 
