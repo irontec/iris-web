@@ -176,6 +176,7 @@ jobs:
       - name: Inspect development server start failure
         if: always()
         run: |
+          docker ps --all
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Stop development server
         run: |
@@ -212,6 +213,7 @@ jobs:
       - name: Inspect development server start failure
         if: failure()
         run: |
+          docker ps --all
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Run tests
         working-directory: tests
