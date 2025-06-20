@@ -149,6 +149,10 @@ jobs:
       - build-docker-nginx
       - build-docker-app
     steps:
+      - name: Display docker versions
+        run: |
+          docker --version
+          docker compose version
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
