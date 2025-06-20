@@ -174,10 +174,6 @@ jobs:
           cp tests/data/basic.env .env
           docker compose --file docker-compose.dev.yml up --detach --wait
       - name: Inspect development server start failure
-        if: failure()
-        run: |
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-      - name: Inspect development server start failure
         if: always()
         run: |
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
