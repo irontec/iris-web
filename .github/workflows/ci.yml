@@ -141,6 +141,42 @@ jobs:
             path: public
             if-no-files-found: error
 
+  start-application:
+    name: Start application with healthchecks
+    runs-on: ubuntu-22.04
+    needs:
+      - build-docker-db
+      - build-docker-nginx
+      - build-docker-app
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: iriswebapp_*
+          path: ${{ runner.temp }}
+          merge-multiple: true
+      - name: Load docker images
+        run: |
+          docker load --input ${{ runner.temp }}/iriswebapp_db.tar
+          docker load --input ${{ runner.temp }}/iriswebapp_nginx.tar
+          docker load --input ${{ runner.temp }}/iriswebapp_app.tar
+      - name: Check out iris
+        uses: actions/checkout@v4
+      - name: Start development server
+        id: startServer
+        run: |
+          # Even though, we use --env-file option when running docker compose, this is still necessary, because the compose has a env_file attribute :(
+          # TODO should move basic.env file, which is in directory tests, up. It's used in several places. Maybe, rename it into dev.env
+          cp tests/data/basic.env .env
+          docker compose --file docker-compose.dev.yml up --detach --wait
+      - name: Inspect development server start failure
+        if: failure() && steps.sartServer.outcome == 'failure'
+        run: |
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+      - name: Stop development server
+        run: |
+          docker compose down
+
   test-api:
     name: Test API
     runs-on: ubuntu-22.04
@@ -163,11 +199,16 @@ jobs:
       - name: Check out iris
         uses: actions/checkout@v4
       - name: Start development server
+        id: startServer
         run: |
           # Even though, we use --env-file option when running docker compose, this is still necessary, because the compose has a env_file attribute :(
           # TODO should move basic.env file, which is in directory tests, up. It's used in several places. Maybe, rename it into dev.env
           cp tests/data/basic.env .env
           docker compose --file docker-compose.dev.yml up --detach --wait
+      - name: Inspect development server start failure
+        if: failure() && steps.sartServer.outcome == 'failure'
+        run: |
+          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
       - name: Run tests
         working-directory: tests
         run: |
