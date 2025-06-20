@@ -26,7 +26,7 @@ import shutil
 from test_harness.docker import Docker
 from test_harness.iris import Iris
 
-_IRIS_PATH = Path('../..')
+_IRIS_PATH = Path('..')
 
 
 class TestsDatabaseMigration(TestCase):
