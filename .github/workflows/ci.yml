@@ -256,7 +256,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          PYTHONUNBUFFERED=true python -m unittest --verbose
+          PYTHONUNBUFFERED=true python -m unittest --start-directory database --verbose
 
   test-e2e:
     name: End to end tests

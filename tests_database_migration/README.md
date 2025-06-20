@@ -15,12 +15,12 @@ source ./venv/bin/activate
 
 Then run:
 ```
-python -m unittest --verbose
+python -m unittest discover --start-directory database --verbose
 ```
 
 To execute only one test, suffix with the fully qualified test name. Example:
 ```
-python -m unittest tests_database_migration.TestsDatabaseMigration.test_get_iocs_should_return_200_after_update_from_v2_4_22
+python -m unittest database.tests_database_migration.TestsDatabaseMigration.test_get_iocs_should_return_200_after_update_from_v2_4_22
 ```
 
 # Test creation
