@@ -20,6 +20,7 @@ services:
     extends:
       file: docker-compose.base.yml
       service: rabbitmq
+    restart: no
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
       start_period: 60s

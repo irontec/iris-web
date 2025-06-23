@@ -177,6 +177,7 @@ jobs:
         if: always()
         run: |
           docker ps --all
+          docker inspect iriswebapp_rabbitmq | jq
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
           sleep 1
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
@@ -228,6 +229,7 @@ jobs:
         if: failure()
         run: |
           docker ps --all
+          docker inspect iriswebapp_rabbitmq | jq
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
           sleep 1
           docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
