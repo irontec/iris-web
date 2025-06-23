@@ -178,21 +178,7 @@ jobs:
         run: |
           docker ps --all
           docker inspect iriswebapp_rabbitmq | jq
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          docker logs iriswebapp_rabbitmq
       - name: Stop development server
         run: |
           docker compose down
@@ -230,21 +216,7 @@ jobs:
         run: |
           docker ps --all
           docker inspect iriswebapp_rabbitmq | jq
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
-          sleep 1
-          docker inspect --format "{{json .State.Health}}" iriswebapp_rabbitmq | jq
+          docker logs iriswebapp_rabbitmq
       - name: Run tests
         working-directory: tests
         run: |
