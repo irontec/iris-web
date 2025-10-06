@@ -79,7 +79,7 @@ spec:
                 - sh
                 - -c
                 - |
-                  ps -eo cmd | grep -E "celery -A app.celery worker" | grep -v grep > /dev/null
+                  ps -eo cmd | grep -E "celery -A app.celery worker" > /dev/null
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
@@ -90,7 +90,7 @@ spec:
                 - sh
                 - -c
                 - |
-                  ps -eo cmd | grep -E "celery -A app.celery worker" | grep -v grep > /dev/null
+                  ps -eo cmd | grep -E "celery -A app.celery worker" > /dev/null
             initialDelaySeconds: 15
             periodSeconds: 10
 
