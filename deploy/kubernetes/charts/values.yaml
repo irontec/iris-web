@@ -117,12 +117,6 @@ irisapp:
 
   ## @param  Iris Frontend Environments
   ##
-  POSTGRES_USER: raptor
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_ADMIN_USER: raptor
-  POSTGRES_ADMIN_PASSWORD: postgres
-  POSTGRES_PORT: 5432
-  POSTGRES_SERVER: postgres.<name_space>.svc.cluster.local
   IRIS_SECRET_KEY: AVerySuperSecretKey-SoNotThisOne
   IRIS_SECURITY_PASSWORD_SALT: ARandomSalt-NotThisOneEither
   IRIS_ADM_USERNAME: administrator
@@ -132,17 +126,11 @@ irisapp:
   DB_RETRY_DELAY: 5
   INTERFACE_HTTPS_PORT: 443
   
-  ## @param irisapp.envFromSecret Environment variables from a secret
+  ## @param irisapp.envFromSecrets Environment variables from a secrets
   ##
-  envFromSecret:
-    name: postgres-secret
-    keys:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_ADMIN_USER
-      - POSTGRES_ADMIN_PASSWORD
-      - POSTGRES_PORT
-      - POSTGRES_SERVER
+  envFromSecrets:
+    - postgres-secret
+    - another-secret
 
   ## @param irisapp.securityContext securityContext for irisapp
   ##

@@ -46,18 +46,6 @@ spec:
           command: ['nohup', './iris-entrypoint.sh', 'iriswebapp']
 
           env:
-          {{- range $key := list "POSTGRES_USER" "POSTGRES_PASSWORD" "POSTGRES_ADMIN_USER" "POSTGRES_ADMIN_PASSWORD" "POSTGRES_PORT" "POSTGRES_SERVER" }}
-          - name: {{ $key }}
-            {{- if and (hasKey $.Values.irisapp "envFromSecret") (has $key $.Values.irisapp.envFromSecret.keys) }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $.Values.irisapp.envFromSecret.name }}
-                key: {{ $key }}
-            {{- else }}
-            value: {{ index $.Values.irisapp $key | quote }}
-            {{- end }}
-          {{- end }}
-
           - name:  IRIS_SECRET_KEY 
             value: {{ .Values.irisapp.IRIS_SECRET_KEY | quote }}
 
@@ -103,6 +91,14 @@ spec:
 
           - name: OIDC_MAPPING_ROLES
             value: {{ .Values.irisapp.OIDC_MAPPING_ROLES | quote }}
+          {{- end }}
+
+          {{- if .Values.irisapp.envFromSecrets }}
+          envFrom:
+            {{- range .Values.irisapp.envFromSecrets }}
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
           {{- end }}
           
           ports:
