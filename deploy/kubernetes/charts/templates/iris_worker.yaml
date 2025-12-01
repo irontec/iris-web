@@ -43,21 +43,11 @@ spec:
           image: "{{ .Values.irisworker.image}}:{{ .Values.irisworker.tag }}"
           imagePullPolicy: "{{ .Values.irisworker.imagePullPolicy }}"
           command: ['./wait-for-iriswebapp.sh', "{{ .Values.irisapp.name }}:{{ .Values.irisapp.service.port }}", './iris-entrypoint.sh', 'iris-worker']
-          
-          envFrom:
-          {{- range $.Values.irisworker.envFromSecrets }}
-            - secretRef:
-                name: {{ .name }}
-          {{- end }}
 
           env:
 
           - name: DOCKERIZED
             value: {{ .Values.irisworker.DOCKERIZED | quote }}
-
-
-          - name: CELERY_BROKER
-            value: {{ .Values.irisworker.CELERY_BROKER | quote }}
 
           - name:  IRIS_SECRET_KEY
             value: {{ .Values.irisworker.IRIS_SECRET_KEY | quote }}
@@ -67,27 +57,14 @@ spec:
 
           - name: NUMBER_OF_CHILD
             value: {{ .Values.irisworker.NUMBER_OF_CHILD | quote }}
-
-          livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - |
-                  ps -eo cmd | grep -E "celery -A app.celery worker" | grep -Pv ^grep > /dev/null
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            failureThreshold: 3
           
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - |
-                  ps -eo cmd | grep -E "celery -A app.celery worker" | grep -Pv ^grep > /dev/null
-            initialDelaySeconds: 15
-            periodSeconds: 10
+          {{- if .Values.irisapp.envFromSecrets }}
+          envFrom:
+            {{- range .Values.irisapp.envFromSecrets }}
+            - secretRef:
+                name: {{ . }}
+            {{- end }}
+          {{- end }}
 
           volumeMounts:
             - mountPath: /home/iris/downloads
