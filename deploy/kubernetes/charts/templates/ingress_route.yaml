@@ -5,37 +5,24 @@ metadata:
   name: {{ .Values.ingress.name }}
   {{- with .Values.ingress.customAnnotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+  {{- range $k, $v := . }}
+    {{- if not (hasPrefix "nginx.ingress.kubernetes.io" $k) }}
+    {{ $k }}: {{ $v }}
+    {{- end }}
+  {{- end }}
   {{- end }}
 spec:
   entryPoints:
     - {{ .Values.ingress.traefik.entryPoint | default "web" }}
-
   routes:
   {{- range $host := .Values.ingress.hosts }}
     {{- range $path := $host.paths }}
-
     - kind: Rule
       match: >
         Host(`{{ $host.host }}`) && PathPrefix(`{{ $path.path }}`)
       services:
-        - name:
-            {{- if hasKey $path "serviceName" -}}
-              {{ $path.serviceName }}
-            {{- else if hasKey $.Values.irisapp "name" -}}
-              {{ $.Values.irisapp.name }}
-            {{- else -}}
-              {{- fail "Missing 'serviceName' in ingress.hosts[].paths[] and no default in irisapp.name" }}
-            {{- end }}
-          port:
-            {{- if hasKey $path "servicePort" -}}
-              {{ $path.servicePort }}
-            {{- else if hasKey $.Values.irisapp.service "port" -}}
-              {{ $.Values.irisapp.service.port }}
-            {{- else -}}
-              {{- fail "Missing 'servicePort' in ingress.hosts[].paths[] and no default in irisapp.service.port" }}
-            {{- end }}
-
+        - name: {{ $.Values.irisapp.name }}
+          port: {{ $.Values.irisapp.service.port }}
     {{- end }}
   {{- end }}
 {{- end }}
